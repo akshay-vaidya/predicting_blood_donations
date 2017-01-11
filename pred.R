@@ -1,0 +1,7 @@
+blood_dat<- read.csv("F:\\Data driven competitions\\predit_blood_donations\\Warm_Up_Predict_Blood_Donations_-_Traning_Data.csv", header = TRUE)
+blood_test<- read.csv("F:\\Data driven competitions\\predit_blood_donations\\Warm_Up_Predict_Blood_Donations_-_Test_Data.csv", header = TRUE)
+blood_dat$Made.Donation.in.March.2007<-factor(blood_dat$Made.Donation.in.March.2007)
+deng_kknn_blood <- kknn(Made.Donation.in.March.2007~., blood_dat, blood_test, distance = 1, na.action=na.pass, kernel = "triangular")
+probabs<-data.frame(deng_kknn_blood$prob)
+probabs<-cbind(probabs, deng_kknn_blood$fitted.values)
+v<-cbind(blood_test$X,probabs$X1)
